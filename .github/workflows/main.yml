@@ -18,7 +18,7 @@ jobs:
               uses: actions/setup-python@v3.0.0
               with:
                 python-version: ${{ env.PYTHON_VERSION }}
-                cache: 'pip'
+                # cache: 'pip'
             - name: 创建虚拟环境
               run: |
                 python -m venv ${{ env.VENV_NAME }}
