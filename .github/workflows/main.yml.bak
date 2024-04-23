@@ -32,4 +32,10 @@ jobs:
                 path: |
                     .
                     !${{ env.VENV_NAME }}/
+            - name: 设置环境变量GOOGLE_API_KEY
+              env: 
+                GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY}}
+              run: |
+                 echo 'export GOOGLE_API_KEY=$GOOGLE_API_KEY' >> ~/.bashrc
+                 source .~/.bashrc
                 
