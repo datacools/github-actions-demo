@@ -1,7 +1,7 @@
 name: steamlit项目自动化构建与部署
 env:
     AZURE_WEBAPP_NAME: 'streamlit-demo'
-    PYTHON_VERSION: '3.10.10'
+    PYTHON_VERSION: '3.10'
     VENV_NAME: '.venv'
 on:
     push:
