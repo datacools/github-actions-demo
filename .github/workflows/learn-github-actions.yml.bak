@@ -1,0 +1,46 @@
+name: learn-github-actions
+on: 
+    #定义触发事件规则
+    push: 
+        #当这个分支变化时触发
+        branches:
+            - master    
+        #或者指定的路径发生变化时触发
+        paths:
+            - src:/*  
+    schedule:
+        #每15分钟执行当前流程
+        - cron: '*/15 * * * *'
+#任务
+jobs:
+    # 定义任务名
+    build:
+        name: 构建项目
+        #指定运行操作系统
+        runs-on: ubuntu:latest
+        #指定要执行的步骤
+        steps:
+            #通常第一步都是需要把仓库中的代码拷贝到操作系统内
+            - name: '拉取仓库中的代码'
+              uses: actions/checkout@v3
+            - name: '安装python环境'
+              uses: actions/setup-python@v3.0.0
+              with:
+                python-version: ${{ env.PYTHON_VERSION }}
+                cache: 'pip'
+            - name: '显示当前目录'
+              run: ls pwd 
+            - run: echo hello
+
+    create_taskA:
+        name: 创建任务1
+        runs-on: ubuntu-latest
+        steps:
+            - run: pwd
+            - run: ls
+    create_taskB:
+        name: 创建任务2
+        runs-on: ubuntu-latest
+        steps:
+            - run: pwd
+            - run: ls

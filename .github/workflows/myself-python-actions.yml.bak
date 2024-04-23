@@ -1,0 +1,46 @@
+name: steamlit项目自动化构建与部署
+env:
+    AZURE_WEBAPP_NAME: 'streamlit-demo'
+    PYTHON_VERSION: '3.10.10'
+    VENV_NAME: '.venv'
+on:
+    push:
+        branches:
+            - develop
+jobs:
+    #构建步骤
+    build:
+        runs-on: ubuntu-20.04
+        steps:
+            - name: checkout项目
+              uses: actions/checkout@v3
+            - name: 安装python环境
+              uses: actions/setup-python@v3.0.0
+              with:
+                python-version: ${{ env.PYTHON_VERSION }}
+                cache: 'pip'
+            - name: 创建虚拟环境
+              run: |
+                python -m venv ${{ env.VENV_NAME }}
+                source .venv/bin/activate
+            - name: 安装项目依赖
+              run: pip install -r requirements.txt
+            - name: 上传项目
+              uses: actions/upload-artifact@v3
+              with:
+                name: ${{env.AZURE_WEBAPP_NAME}}
+                path: |
+                    .
+                    !${{ env.VENV_NAME }}/
+
+    #部署步骤
+    # deploy:
+    #     permissions: 
+    #         contents: none
+    #     runs-on: ubuntu-20.04   
+
+        
+
+
+
+                
